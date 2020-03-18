@@ -70,12 +70,17 @@ public class FrameActivity extends AppCompatActivity {
         //}
     }
 
+    /**
+     * 进度条
+     * @param hint
+     */
     protected void displayLoading(CharSequence hint) {
         if(null == loading) {
             ConstraintLayout layout = (ConstraintLayout) LayoutInflater.from(this).inflate(R.layout.loading,null);
             if(null != hint) {
-                layout.getChildAt(1).setVisibility(View.VISIBLE);
-                ((TextView)layout.getChildAt(1)).setText(hint);
+                TextView textView = layout.findViewById(R.id.text);
+                textView.setVisibility(View.VISIBLE);
+                textView.setText(hint);
             }
             loading = new AlertDialog.Builder(this,R.style.loadingGrayLevel).setView(layout).create();
             loading.setCanceledOnTouchOutside(false);
@@ -87,5 +92,13 @@ public class FrameActivity extends AppCompatActivity {
             });
         }
         loading.show();
+    }
+
+    /**
+     * 隐藏进度条
+     */
+    protected void hideLoading(){
+        if(null != loading && loading.isShowing())
+            loading.dismiss();//loading.cancel();
     }
 }
