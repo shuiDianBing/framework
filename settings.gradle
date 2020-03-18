@@ -1,0 +1,3 @@
+rootProject.name='Frameset'
+include ':app'
+include ':framework'
