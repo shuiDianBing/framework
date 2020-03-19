@@ -9,6 +9,7 @@ import androidx.databinding.ViewDataBinding;
 
 import com.stynet.framework.FrameActivity;
 import com.stynet.framework.mvpvm.presenter.MvpvmPresenter;
+import com.stynet.framework.mvvm.view.MvvmActivity;
 
 /**
  * Created by shuiDianBing on 11:42.
@@ -23,7 +24,7 @@ public abstract class MvpvmActivity<Binding extends ViewDataBinding,Presenter ex
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.bind(viewBinding());
+        binding = DataBindingUtil.setContentView(this,layoutId());//绑定视图
         presenter = initPresenter();
     }
 
@@ -35,13 +36,19 @@ public abstract class MvpvmActivity<Binding extends ViewDataBinding,Presenter ex
     }
 
     /**
-     * 视图绑定{@link MvpvmActivity#setBinding(int)}
+     * 获取视图layoutId{@link MvpvmActivity#viewBinding()}{@link MvpvmActivity#setBinding(int)}
+     * @return
+     */
+    protected abstract @LayoutRes int layoutId();
+
+    /**
+     * 视图绑定{@link MvpvmActivity#layoutId()}{@link MvpvmActivity#setBinding(int)}
      * @return view
      */
     protected abstract View viewBinding();
 
     /**
-     * 设置视图绑定{@link MvpvmActivity#viewBinding()}
+     * 设置视图绑定{@link MvpvmActivity#layoutId()}{@link MvpvmActivity#viewBinding()}
      * @param layoutId
      */
     protected void setBinding(@LayoutRes int layoutId) {

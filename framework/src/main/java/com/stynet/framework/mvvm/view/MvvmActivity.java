@@ -23,7 +23,7 @@ public abstract class MvvmActivity<Binding extends ViewDataBinding>extends Frame
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.bind(viewBinding());//绑定视图
+        binding = DataBindingUtil.setContentView(this,layoutId());//绑定视图
         model = initModel();//初始mvvmModel
     }
 
@@ -35,13 +35,19 @@ public abstract class MvvmActivity<Binding extends ViewDataBinding>extends Frame
     }
 
     /**
-     * 视图绑定{@link MvvmActivity#setBinding(int)}
+     * 获取视图layoutId{@link MvvmActivity#viewBinding()}{@link MvvmActivity#setBinding(int)}
+     * @return
+     */
+    protected abstract @LayoutRes int layoutId();
+
+    /**
+     * 视图绑定{@link MvvmActivity#layoutId()}{@link MvvmActivity#setBinding(int)}
      * @return view
      */
     protected abstract View viewBinding();
 
     /**
-     * 设置视图绑定{@link MvvmActivity#viewBinding()}
+     * 设置视图绑定{@link MvvmActivity#layoutId()}{@link MvvmActivity#viewBinding()}
      * @param layoutId
      */
     protected void setBinding(@LayoutRes int layoutId) {

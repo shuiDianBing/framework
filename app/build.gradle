@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
-
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+def calendar = Calendar.getInstance()
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -10,20 +13,90 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        versionCode Integer.parseInt(String.format("%d%02d%02d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH)))//20180922
+        versionName "3.2.1"
+        multiDexEnabled true
+        javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ AROUTER_MODULE_NAME : project.getName()]
+            }
         }
     }
+    signingConfigs{
+        debug{
+            keyAlias 'frameset'
+            keyPassword 'frameset'
+            storeFile file(".../app/jks/frameset")
+            storePassword 'frameset'
+        }
+        release {
+            keyAlias 'frameset'
+            keyPassword 'frameset'
+            storeFile file(".../app/jks/frameset")
+            storePassword 'frameset'
+        }
+    }
+    buildTypes {
+        debug{
+            //是否开启zip优化
+            zipAlignEnabled false
+            versionNameSuffix "debug"
+            //正式的签名文件
+            signingConfig signingConfigs.debug//signingConfigs此项闭包放在buildTypes前才能调用这句
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String","API_HOST","null")//第一个参数：要创建的字段类型，第二个参数：要创建的字段名，第三个参数：创建此字段的值
+        }
+        release {
+            //是否开启zip优化
+            zipAlignEnabled true
+            minifyEnabled false
+            versionNameSuffix "release"
+            //正式的签名文件
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String","API_HOST","null")
+        }
+    }
+    //    android.applicationVariants.all { variant ->
+    //variant.outputs.all {
+//            outputFileName = "frameset_version" + defaultConfig.versionName + "-200.apk"
+//            outputFileName = "frameset_version" + defaultConfig.versionName + "-${releaseTime()}-REL.apk"
+//            outputFileName = "frameset_version" + defaultConfig.versionName + "-XN.apk"
+//            outputFileName = "frameset_version" + defaultConfig.versionName + "-QS.apk"
+//            outputFileName = "frameset_version" + defaultConfig.versionName + "-XL.apk"
+//            outputFileName = "frameset_version" + defaultConfig.versionName + "-${releaseTime()}.apk"
+//        }
+//    }
+    /**
+     * Android studio build.gradle配置，debug下使用正式签名，重命名apk https://blog.csdn.net/y_chengyong/article/details/47154515
+     * Android 使用Gradle打包APP名称和版本号 https://www.jianshu.com/p/1f7efff62d85
+     * Android Studio 3.0正式版填坑之路 https://www.jianshu.com/p/9b25087a5d7d
+     */
+    applicationVariants.all { variant ->//android.applicationVariants.all
+        variant.outputs.all { output ->//androidStudio3.0以前的版本可用variant.outputs.all
+//            output.outputFile = new File(output.outputFile.parent,"天使端_V" + variant.productFlavors[0].name + defaultConfig.versionName +
+//                    (variant.buildType.name.equals('release')?"Releast.apk" : "Debug.apk"))
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (variant.buildType.name.equals('release')) {
+                    //variant.mergedFlavor.versionName = getVersionName()
+                    outputFileName = "frameset_version${variant.mergedFlavor.versionName}"+"(${ variant.mergedFlavor.versionCode})release.apk"
+                } else if (variant.buildType.name.equals('debug')) {
+                    //variant.mergedFlavor.versionName = getVersionName()+"."+releaseTime()
+                    outputFileName = "frameset_version${variant.mergedFlavor.versionName}"+"(versionCode${ variant.mergedFlavor.versionCode})debug.apk"
+                }
+                //output.outputFile = new File(outputFile.parent, fileName)//3.0以前
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dataBinding{enabled = true }
 }
 
 dependencies {
@@ -34,6 +107,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //implementation 'com.github.shuiDianBing:framework:1+'//公开github仓库JitPack才能拉取到发布的依赖库，私有的还未走通
     implementation project(path: ':framework')
-    //implementation 'com.github.shuiDianBing:framework:1.0.0'//公开github仓库JitPack才能拉取到发布的依赖库，私有的还未走通
+    //ARouter<<https://github.com/alibaba/ARouter
+    implementation 'com.alibaba:arouter-api:1.5.0'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'//注解器
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }
