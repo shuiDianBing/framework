@@ -19,18 +19,14 @@ public class ApiStrategy {
     private static ApiStrategy apiStrategy;
     private Retrofit retrofit;
     //private Api api;
-    private static String host;
 
     /**
      *
-     * @param host 请求url
      * @return
      */
-    public static ApiStrategy getInstance(String host){
-        if(null == apiStrategy) {
-            ApiStrategy.host = host;
+    public static ApiStrategy getInstance(){
+        if(null == apiStrategy)
             apiStrategy = new ApiStrategy();
-        }
         return apiStrategy;
     }
     protected ApiStrategy(){
@@ -51,8 +47,7 @@ public class ApiStrategy {
      * @return
      */
     public String host(){
-        //return null;//debug
-        return host;
+        return null;//debug
     }
 
     /**

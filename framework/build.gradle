@@ -42,6 +42,7 @@ dependencies {
     //【Android】RxJava + Retrofit完成网络请求 https://www.jianshu.com/p/1fb294ec7e3b/
     //implementation 'io.reactivex:rxjava:x.y.z'
     implementation 'io.reactivex.rxjava2:rxjava:2.x.y'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.squareup.retrofit2:retrofit:2+'
     //implementation 'com.squareup.retrofit2:adapter-rxjava:2+'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2+'//Retrofit中的RxJavaCallAdapterFactory << https://www.jianshu.com/p/e80431bda927

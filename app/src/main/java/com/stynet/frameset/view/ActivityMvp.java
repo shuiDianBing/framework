@@ -8,7 +8,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.stynet.frameset.R;
 import com.stynet.frameset.route.Path;
 import com.stynet.framework.FrameActivity;
-import com.stynet.framework.mvp.view.MvpActivity;
 
 /**
  * Created by shuiDianBing on 12:11.

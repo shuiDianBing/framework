@@ -9,7 +9,6 @@ import androidx.databinding.ViewDataBinding;
 
 import com.stynet.framework.FrameActivity;
 import com.stynet.framework.mvpvm.presenter.MvpvmPresenter;
-import com.stynet.framework.mvvm.view.MvvmActivity;
 
 /**
  * Created by shuiDianBing on 11:42.
