@@ -51,6 +51,12 @@ public class FrameActivity extends AppCompatActivity {
         return resources;//super.getResources();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hideLoading();
+    }
+
     /**
      * 沉浸状态栏
      * @param color 状态栏颜色

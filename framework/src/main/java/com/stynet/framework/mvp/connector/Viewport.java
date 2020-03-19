@@ -6,5 +6,5 @@ package com.stynet.framework.mvp.connector;
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function << model与view通信接口层
  */
-public interface Port {
+public interface Viewport {
 }

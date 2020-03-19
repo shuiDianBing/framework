@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
  */
 public class FrameFragment extends AppCompatDialogFragment {
     private View layout;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

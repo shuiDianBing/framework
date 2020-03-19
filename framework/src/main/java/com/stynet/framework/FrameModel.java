@@ -6,5 +6,5 @@ package com.stynet.framework;
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function << Model层：服务器数据对应数据模型类
  */
-public interface FrameModel {
+public class FrameModel {
 }

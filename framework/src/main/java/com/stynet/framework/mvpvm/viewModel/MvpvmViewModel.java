@@ -1,5 +1,6 @@
 package com.stynet.framework.mvpvm.viewModel;
 
+import com.stynet.framework.FrameModel;
 import com.stynet.framework.FramePresenter;
 
 /**
@@ -8,5 +9,5 @@ import com.stynet.framework.FramePresenter;
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function << ViewModel层：以databinding为基础，对外提供控制xml界面的方法
  */
-public class MvpvmViewModel extends FramePresenter {
+public class MvpvmViewModel{
 }
