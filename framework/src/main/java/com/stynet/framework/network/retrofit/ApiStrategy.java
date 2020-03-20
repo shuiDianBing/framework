@@ -19,16 +19,19 @@ public class ApiStrategy {
     private static ApiStrategy apiStrategy;
     private Retrofit retrofit;
     //private Api api;
+    private static String HOST;
 
     /**
      *
      * @return
      */
-    public static ApiStrategy getInstance(){
+    public static ApiStrategy getInstance(String host){
+        HOST = host;
         if(null == apiStrategy)
             apiStrategy = new ApiStrategy();
         return apiStrategy;
     }
+
     protected ApiStrategy(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
@@ -47,7 +50,7 @@ public class ApiStrategy {
      * @return
      */
     public String host(){
-        return null;//debug
+        return HOST;//debug
     }
 
     /**
@@ -56,7 +59,7 @@ public class ApiStrategy {
      */
     public static String webHost(){
         //return null;//debug
-        return null;
+        return HOST;
     }
 
     public Retrofit getRetrofit() {
