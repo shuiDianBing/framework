@@ -13,7 +13,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * Created by shuiDianBing on 9:55.
  * Refer to the website << nullptr
  * QQ << 1226085282 &  Email << 1226085282@qq.com
- * function << 封装网络请求拦截器
+ * function << 封装网络请求拦截器 << 内部创建生成请求接口
+ * {@link ApiStrategy}
  */
 public class ApiPolicy {
     private static ApiPolicy apiPolicy;

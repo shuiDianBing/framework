@@ -6,9 +6,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.stynet.framework.FrameActivity;
 import com.stynet.framework.mvp.view.MvpActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FrameActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +17,6 @@ public class MainActivity extends AppCompatActivity {
         //    statusBar(Color.BLUE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //displayLoading("玩命加载中。。。");
+        displayLoading(R.string.playLifeLoading);
     }
 }

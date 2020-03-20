@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Frameset</string>
+    <string name="playLifeLoading">玩命加载中...</string>
 </resources>

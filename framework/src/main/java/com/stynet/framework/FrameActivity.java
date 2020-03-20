@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -77,10 +78,18 @@ public class FrameActivity extends AppCompatActivity {
     }
 
     /**
+     *
+     * @param stringId 字符串资源id
+     */
+    public void displayLoading(@StringRes int stringId){
+        displayLoading(getString(stringId));
+    }
+
+    /**
      * 进度条
      * @param hint
      */
-    protected void displayLoading(CharSequence hint) {
+    public void displayLoading(CharSequence hint) {
         if(null == loading) {
             ConstraintLayout layout = (ConstraintLayout) LayoutInflater.from(this).inflate(R.layout.loading,null);
             if(null != hint) {

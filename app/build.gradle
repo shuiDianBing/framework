@@ -25,23 +25,24 @@ android {
         }
     }
     signingConfigs{
+        //提高安全性签名文件、别名、密码放置gradle.properties中
         debug{
-            keyAlias 'frameset'
-            keyPassword 'frameset'
-            storeFile file(".../app/jks/frameset")
-            storePassword 'frameset'
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
         }
         release {
-            keyAlias 'frameset'
-            keyPassword 'frameset'
-            storeFile file(".../app/jks/frameset")
-            storePassword 'frameset'
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
         }
     }
     buildTypes {
         debug{
             //是否开启zip优化
-            zipAlignEnabled false
+            minifyEnabled false
             versionNameSuffix "debug"
             //正式的签名文件
             signingConfig signingConfigs.debug//signingConfigs此项闭包放在buildTypes前才能调用这句
@@ -82,10 +83,10 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 if (variant.buildType.name.equals('release')) {
                     //variant.mergedFlavor.versionName = getVersionName()
-                    outputFileName = "frameset_version${variant.mergedFlavor.versionName}"+"(${ variant.mergedFlavor.versionCode})release.apk"
+                    outputFileName = "framesetVersion${variant.mergedFlavor.versionName}"+"(${ variant.mergedFlavor.versionCode})release.apk"
                 } else if (variant.buildType.name.equals('debug')) {
                     //variant.mergedFlavor.versionName = getVersionName()+"."+releaseTime()
-                    outputFileName = "frameset_version${variant.mergedFlavor.versionName}"+"(versionCode${ variant.mergedFlavor.versionCode})debug.apk"
+                    outputFileName = "framesetVersion${variant.mergedFlavor.versionName}"+"(versionCode${ variant.mergedFlavor.versionCode})debug.apk"
                 }
                 //output.outputFile = new File(outputFile.parent, fileName)//3.0以前
             }
