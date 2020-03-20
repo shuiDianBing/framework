@@ -10,29 +10,28 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
- * Created by shuiDianBing on 14:04.
- * Refer to the website << HttpLoggingInterceptor 拦截 请求参数和请求结果 : https://www.jianshu.com/p/78e9ff82863b
+ * Created by shuiDianBing on 9:55.
+ * Refer to the website << nullptr
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function << 封装网络请求拦截器
  */
-public final class ApiStrategy {
-    private static ApiStrategy apiStrategy;
-    private Retrofit retrofit;
-    //private Api api;
+public class ApiPolicy {
+    private static ApiPolicy apiPolicy;
+    private Object type;
     private static String HOST;
 
     /**
      *
      * @return
      */
-    public static ApiStrategy getInstance(String host){
+    public static ApiPolicy getInstance(Class service,String host){
         HOST = host;
-        if(null == apiStrategy)
-            apiStrategy = new ApiStrategy();
-        return apiStrategy;
+        if(null == apiPolicy)
+            apiPolicy = new ApiPolicy(service);
+        return apiPolicy;
     }
 
-    private ApiStrategy(){
+    private ApiPolicy(Class service){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -40,12 +39,12 @@ public final class ApiStrategy {
             }
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        retrofit = new Retrofit.Builder().client(new OkHttpClient.Builder().connectTimeout(0x10, TimeUnit.SECONDS)
+        type = new Retrofit.Builder().client(new OkHttpClient.Builder().connectTimeout(0x10, TimeUnit.SECONDS)
                 .readTimeout(0x10,TimeUnit.SECONDS).writeTimeout(0x10,TimeUnit.SECONDS)
                 .addInterceptor(interceptor).addNetworkInterceptor(interceptor).build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(ResponseConverterFactory/*GsonConverterFactory*/.create())
-                .baseUrl(host()).build();//.create(service);
+                .baseUrl(host()).build().create(service);
     }
 
     /**
@@ -65,8 +64,8 @@ public final class ApiStrategy {
         return HOST;
     }
 
-    public Retrofit getRetrofit() {
-        return retrofit;
+    public Object getType() {
+        return type;
     }
 
 //    private Api getApi() {
