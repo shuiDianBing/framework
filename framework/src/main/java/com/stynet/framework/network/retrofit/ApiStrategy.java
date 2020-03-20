@@ -25,14 +25,14 @@ public class ApiStrategy {
      *
      * @return
      */
-    public static ApiStrategy getInstance(String host){
+    protected static ApiStrategy getInstance(String host){
         HOST = host;
         if(null == apiStrategy)
             apiStrategy = new ApiStrategy();
         return apiStrategy;
     }
 
-    protected ApiStrategy(){
+    private ApiStrategy(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
