@@ -22,6 +22,7 @@ public class FrameFragment extends AppCompatDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //super.onCreateView(inflater, container, savedInstanceState);
         if(null != layout){
             ViewGroup parent = (ViewGroup) layout.getParent();
             if(null != parent)

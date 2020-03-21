@@ -26,10 +26,11 @@ public abstract class MvvmFragment<Binding extends ViewDataBinding> extends Fram
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        binding = DataBindingUtil.bind(viewBinding());//绑定视图
+        //super.onCreateView(inflater,container,savedInstanceState);
+        View layout = viewBinding();
+        binding = DataBindingUtil.bind(layout);//绑定视图
         model = initModel();//初始mvvmModel
-        return view;
+        return layout;
     }
 
     @Override

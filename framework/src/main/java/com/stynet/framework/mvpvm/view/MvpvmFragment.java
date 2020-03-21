@@ -28,10 +28,11 @@ public abstract class MvpvmFragment<Binding extends ViewDataBinding,Presenter ex
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        binding = DataBindingUtil.bind(viewBinding());
+        //super.onCreateView(inflater,container,savedInstanceState);
+        View layout = viewBinding();
+        binding = DataBindingUtil.bind(layout);//绑定视图
         presenter = initPresenter();
-        return view;
+        return layout;
     }
 
     @Override
