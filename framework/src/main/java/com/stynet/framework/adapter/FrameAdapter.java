@@ -21,6 +21,11 @@ public abstract class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.Bin
         this.list = list;
     }
 
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
     public void update(List list, boolean isRefresh){
         if(null != list) {
             if (isRefresh || null == this.list)
