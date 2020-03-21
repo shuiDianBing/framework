@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 /**
  * Created by shuiDianBing on 18:10.
  * Refer to the website << nullptr
@@ -13,6 +15,25 @@ import androidx.recyclerview.widget.RecyclerView;
  * function << 封装绑定适配
  */
 public abstract class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.BindingViewHolder>{
+    private List list;
+
+    public FrameAdapter(List list) {
+        this.list = list;
+    }
+
+    public void update(List list, boolean isRefresh){
+        if(null != list) {
+            if (isRefresh || null == this.list)
+                this.list = list;
+            else
+                this.list.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
+
+    protected List getList() {
+        return list;
+    }
 
     public class BindingViewHolder<Binding extends ViewDataBinding> extends RecyclerView.ViewHolder{
         private Binding binding;
