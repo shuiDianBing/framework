@@ -29,7 +29,7 @@ public abstract class MvpvmFragment<Binding extends ViewDataBinding,Presenter ex
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //super.onCreateView(inflater,container,savedInstanceState);
-        View layout = viewBinding();
+        View layout = viewBinding(inflater,container,savedInstanceState);
         binding = DataBindingUtil.bind(layout);//绑定视图
         presenter = initPresenter();
         return layout;
@@ -46,10 +46,10 @@ public abstract class MvpvmFragment<Binding extends ViewDataBinding,Presenter ex
      * 视图绑定{@link MvpvmFragment#setBinding(View)}
      * @return view
      */
-    protected abstract View viewBinding();
+    protected abstract View viewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
     /**
-     * 设置视图绑定{@link MvpvmFragment#viewBinding()}
+     * 设置视图绑定{@link MvpvmFragment#viewBinding(LayoutInflater, ViewGroup, Bundle)}
      * @param layout
      */
 

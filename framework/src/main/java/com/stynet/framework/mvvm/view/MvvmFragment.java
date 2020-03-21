@@ -27,7 +27,7 @@ public abstract class MvvmFragment<Binding extends ViewDataBinding> extends Fram
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //super.onCreateView(inflater,container,savedInstanceState);
-        View layout = viewBinding();
+        View layout = viewBinding(inflater,container,savedInstanceState);
         binding = DataBindingUtil.bind(layout);//绑定视图
         model = initModel();//初始mvvmModel
         return layout;
@@ -44,10 +44,10 @@ public abstract class MvvmFragment<Binding extends ViewDataBinding> extends Fram
      * 视图绑定{@link MvvmFragment#setBinding(View)}
      * @return view
      */
-    protected abstract View viewBinding();
+    protected abstract View viewBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
     /**
-     * 设置视图绑定{@link MvvmFragment#viewBinding()}
+     * 设置视图绑定{@link MvvmFragment#viewBinding(LayoutInflater, ViewGroup, Bundle)}
      * @param layout
      */
     public void setBinding(View layout) {
