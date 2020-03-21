@@ -26,6 +26,11 @@ public abstract class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.Bin
         return list.size();
     }
 
+    /**
+     * 刷新
+     * @param list 新数据
+     * @param isRefresh 是否刷新
+     */
     public void update(List list, boolean isRefresh){
         if(null != list) {
             if (isRefresh || null == this.list)
