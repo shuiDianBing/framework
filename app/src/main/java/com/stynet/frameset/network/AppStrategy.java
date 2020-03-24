@@ -9,7 +9,7 @@ import com.stynet.framework.network.retrofit.ApiStrategy;
  * function <<
  */
 public class AppStrategy{
-    private static final String HOST_ = "host";
+    private static final String HOST_ = "http://www.weather.com.cn";
     private static final String HOST_DEBUG = "";
     private static AppStrategy appStrategy;
     private RemoteApi api;

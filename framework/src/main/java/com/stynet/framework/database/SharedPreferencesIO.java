@@ -12,6 +12,7 @@ import java.util.Map;
  * Refer to the website << nullptr
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function << SharedPreferences 读写
+ * 后续有空添加映射获取类的字段名作为存储的key
  */
 public class SharedPreferencesIO {
     private SharedPreferences sharedPreferences;

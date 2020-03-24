@@ -12,6 +12,6 @@ import retrofit2.http.POST;
  * function <<
  */
 public interface RemoteApi {
-    @POST("测试")@FormUrlEncoded
+    @POST("/data/sk/101190408.html")@FormUrlEncoded
     Observable<Response<Response<Void>>> signin(@Field("parameter")String parameter);
 }

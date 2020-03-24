@@ -9,7 +9,7 @@ import com.stynet.framework.network.retrofit.ApiPolicy;
  * function <<
  */
 public class AppPolicy{
-    private static final String HOST_ = "host";
+    private static final String HOST_ = "http://www.weather.com.cn";
     private static final String HOST_DEBUG = "";
     private static AppPolicy appPolicy;
     private RemoteApi api;

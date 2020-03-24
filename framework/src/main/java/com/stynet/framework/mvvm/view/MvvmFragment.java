@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.stynet.framework.FrameFragment;
+import com.stynet.framework.FrameModel;
 import com.stynet.framework.mvvm.model.MvvmModel;
 
 /**
@@ -70,5 +71,9 @@ public abstract class MvvmFragment<Binding extends ViewDataBinding> extends Fram
      */
     public void setModel(MvvmModel model) {
         this.model = model;
+    }
+
+    protected FrameModel getModel(){
+        return model;
     }
 }

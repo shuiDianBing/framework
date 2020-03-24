@@ -75,4 +75,8 @@ public abstract class MvvmActivity<Binding extends ViewDataBinding>extends Frame
     protected void setModel(FrameModel model){
         this.model = model;
     }
+
+    protected FrameModel getModel(){
+        return model;
+    }
 }
