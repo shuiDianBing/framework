@@ -50,4 +50,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2+'//Retrofit中的RxJavaCallAdapterFactory << https://www.jianshu.com/p/e80431bda927
     implementation 'com.squareup.okhttp3:logging-interceptor:4+'//HttpLoggingInterceptor消息拦截器<< https://www.jianshu.com/p/1463bc223cd8
     implementation 'com.squareup.retrofit2:converter-gson:2+'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }

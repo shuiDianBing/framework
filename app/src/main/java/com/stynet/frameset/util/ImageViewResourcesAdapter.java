@@ -1,4 +1,4 @@
-package com.yuanduoduo.yuanduoduo.utils;
+package com.stynet.frameset.util;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
