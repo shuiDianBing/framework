@@ -24,7 +24,7 @@ import java.security.MessageDigest;
  * Created by shuiDianBing on 11:40.
  * Refer to the website << 让Glide输出指定位置的圆角图片 https://blog.csdn.net/mchenys/article/details/80284132
  * QQ << 1226085282 &  Email << 1226085282@qq.com
- * function << 不规则圆角
+ * function << 蒙版遮挡的方式好像
  */
 public class GlideCornerTransform implements Transformation<Bitmap> {
     private BitmapPool bitmapPool;

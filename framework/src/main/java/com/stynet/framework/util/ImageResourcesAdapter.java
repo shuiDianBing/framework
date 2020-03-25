@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
+
 /**
  * Created by shuiDianBing on 18:53.
  * Refer to the website << nullptr
@@ -33,6 +34,17 @@ public class ImageResourcesAdapter {
         view.setImageResource(resId);
     }
 
+    /**
+     *
+     * @param imageView
+     * @param url
+     * @param holderDrawable
+     * @param errorDrawable
+     * @param filletLeftTop
+     * @param filletRightTop
+     * @param filletRightBottom
+     * @param filletLeftBottom
+     */
     @BindingAdapter({"imageUrl", "placeHolder", "error","filletLeftTop","filletRightTop","filletRightBottom","filletLeftBottom"})
     public static void loadImage(ImageView imageView, String url, Drawable holderDrawable, Drawable errorDrawable
             , int filletLeftTop,int filletRightTop,int filletRightBottom,int filletLeftBottom) {
@@ -40,24 +52,32 @@ public class ImageResourcesAdapter {
         DrawableTransitionOptions drawableTransitionOptions = DrawableTransitionOptions
                 .with(new DrawableCrossFadeFactory.Builder(100).setCrossFadeEnabled(true).build());
 
-//        Glide.with(imageView.getContext())
-//                .applyDefaultRequestOptions(variation(holderDrawable,errorDrawable,0)).load(url)
-//                .transition(drawableTransitionOptions).into(imageView);
+        if(0< filletLeftTop || 0< filletRightTop || 0< filletRightBottom || 0< filletLeftBottom) {//角度有一个大于0
+            MultiTransformation multiTransformation = variation(filletLeftTop, filletRightTop, filletRightBottom, filletLeftBottom);
+            Glide.with(imageView.getContext()).load(url)
+                    .apply(RequestOptions.bitmapTransform(multiTransformation)
+                            .placeholder(holderDrawable).error(errorDrawable)
+                            .priority(Priority.HIGH)
+                            .skipMemoryCache(true)//不做内存缓存
+                            .diskCacheStrategy(DiskCacheStrategy.NONE))//不做磁盘缓存
+                    .transition(drawableTransitionOptions).into(imageView);
+        }else {//角度都小于0则显示⚪圆图
+            /*GlideCornerTransform transformation = new GlideCornerTransform(imageView.getContext());
+            //只是绘制左上角和右上角圆角
+            transformation.setExceptCorner(0< filletLeftTop, 0< filletRightTop, 0< filletLeftBottom, 0< filletRightBottom);
+            Glide.with(imageView.getContext()).load(url).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .transform(transformation).transition(drawableTransitionOptions).into(imageView);*/
 
-        MultiTransformation multiTransformation = variation(filletLeftTop,filletRightTop,filletRightBottom,filletLeftBottom);
-        Glide.with(imageView.getContext()).load(url)
-                .apply(RequestOptions.bitmapTransform(multiTransformation)
-                        .placeholder(holderDrawable).error(errorDrawable)
-                        .priority(Priority.HIGH)
-                        .skipMemoryCache(true)//不做内存缓存
-                        .diskCacheStrategy(DiskCacheStrategy.NONE))//不做磁盘缓存
-                .transition(drawableTransitionOptions).into(imageView);
+            Glide.with(imageView.getContext())
+                    .applyDefaultRequestOptions(variation(holderDrawable, errorDrawable, 0)).load(url)
+                    .transition(drawableTransitionOptions).into(imageView);
+        }
     }
 
     /**
      * ↖ ↗
      * ↙ ↘
-     * 圆形 | 圆角 | 非圆角
+     * 不规则圆角 | 圆角 | 非圆角
      * Glide输出指定位置圆角,解决ImageView设置scanType="centerCrop"无效(完美解决) https://www.jianshu.com/p/b749a56eff32
      * @param filletLeftTop ↖左上
      * @param filletRightTop ↗右上
@@ -65,7 +85,7 @@ public class ImageResourcesAdapter {
      * @param filletLeftBottom ↙左下
      * @return
      */
-    private static MultiTransformation variation(int filletLeftTop,int filletRightTop,int filletRightBottom,int filletLeftBottom){
+    private static MultiTransformation variation(int filletLeftTop, int filletRightTop, int filletRightBottom, int filletLeftBottom){
         //↖左上
         GlideRoundedCornersTransformation leftTop = new GlideRoundedCornersTransformation
                 (filletLeftTop, 0, GlideRoundedCornersTransformation.CornerType.LEFT_TOP);
@@ -80,7 +100,7 @@ public class ImageResourcesAdapter {
                 (filletLeftBottom, 0, GlideRoundedCornersTransformation.CornerType.LEFT_BOTTOM);
 
         //组合各种Transformation,
-        MultiTransformation<android.graphics.Bitmap> mation = new MultiTransformation<>
+        MultiTransformation<Bitmap> mation = new MultiTransformation<>
                 //Glide设置圆角图片后设置ImageVIew的scanType="centerCrop"无效解决办法,将new CenterCrop()添加至此
                 (new CenterCrop(), leftTop, rightTop,rightBottom,leftBottom);
         return mation;
@@ -95,7 +115,7 @@ public class ImageResourcesAdapter {
      * @return
      */
     @Deprecated
-    private static RequestOptions variation(Drawable holderDrawable, Drawable errorDrawable,int fillet){
+    private static RequestOptions variation(Drawable holderDrawable, Drawable errorDrawable, int fillet){
         RequestOptions options = new RequestOptions().placeholder(holderDrawable).error(errorDrawable)
                 .priority(Priority.HIGH)
                 .skipMemoryCache(true)//不做内存缓存
