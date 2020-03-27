@@ -2,6 +2,7 @@ package com.stynet.framework.util;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -110,6 +111,45 @@ public class ImageResourcesAdapter {
 
             Glide.with(imageView.getContext())
                     .applyDefaultRequestOptions(variation(holderDrawable, errorDrawable, 0)).load(url)
+                    .transition(drawableTransitionOptions).into(imageView);
+        }
+    }
+    /**
+     *
+     * @param imageView
+     * @param uri
+     * @param holderDrawable
+     * @param errorDrawable
+     * @param filletLeftTop
+     * @param filletRightTop
+     * @param filletRightBottom
+     * @param filletLeftBottom
+     */
+    @BindingAdapter({"imageUrl", "placeHolder", "error","filletLeftTop","filletRightTop","filletRightBottom","filletLeftBottom"})
+    public static void loadImage(ImageView imageView, Uri uri, int holderDrawable, int errorDrawable
+            , int filletLeftTop, int filletRightTop, int filletRightBottom, int filletLeftBottom) {
+        //添加过渡动画后占位图当背景显示了
+        DrawableTransitionOptions drawableTransitionOptions = DrawableTransitionOptions
+                .with(new DrawableCrossFadeFactory.Builder(100).setCrossFadeEnabled(true).build());
+
+        if(0< filletLeftTop || 0< filletRightTop || 0< filletRightBottom || 0< filletLeftBottom) {//角度有一个大于0
+            MultiTransformation multiTransformation = variation(filletLeftTop, filletRightTop, filletRightBottom, filletLeftBottom);
+            Glide.with(imageView.getContext()).load(uri)
+                    .apply(RequestOptions.bitmapTransform(multiTransformation)
+                            .placeholder(holderDrawable).error(errorDrawable)
+                            .priority(Priority.HIGH)
+                            .skipMemoryCache(true)//不做内存缓存
+                            .diskCacheStrategy(DiskCacheStrategy.NONE))//不做磁盘缓存
+                    .transition(drawableTransitionOptions).into(imageView);
+        }else {//角度都小于0则显示⚪圆图
+            /*GlideCornerTransform transformation = new GlideCornerTransform(imageView.getContext());
+            //只是绘制左上角和右上角圆角
+            transformation.setExceptCorner(0< filletLeftTop, 0< filletRightTop, 0< filletLeftBottom, 0< filletRightBottom);
+            Glide.with(imageView.getContext()).load(url).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .transform(transformation).transition(drawableTransitionOptions).into(imageView);*/
+
+            Glide.with(imageView.getContext())
+                    .applyDefaultRequestOptions(variation(holderDrawable, errorDrawable, 0)).load(uri)
                     .transition(drawableTransitionOptions).into(imageView);
         }
     }
