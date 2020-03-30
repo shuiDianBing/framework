@@ -70,7 +70,7 @@ public class ImageResourcesAdapter {
                     .transform(transformation).transition(drawableTransitionOptions).into(imageView);*/
 
             Glide.with(imageView.getContext())
-                    .applyDefaultRequestOptions(variation(holderDrawable, errorDrawable, 0)).load(url)
+                    .applyDefaultRequestOptions(variation(holderDrawable, errorDrawable, -1)).load(url)
                     .transition(drawableTransitionOptions).into(imageView);
         }
     }
@@ -110,7 +110,7 @@ public class ImageResourcesAdapter {
                     .transform(transformation).transition(drawableTransitionOptions).into(imageView);*/
 
             Glide.with(imageView.getContext())
-                    .applyDefaultRequestOptions(variation(holderDrawable, errorDrawable, 0)).load(url)
+                    .applyDefaultRequestOptions(variation(holderDrawable, errorDrawable, -1)).load(url)
                     .transition(drawableTransitionOptions).into(imageView);
         }
     }

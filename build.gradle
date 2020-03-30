@@ -8,6 +8,9 @@ buildscript {
         
     }
     dependencies {
+        //https://services.gradle.org/distributions/
+        //https://gradle.org/releases/
+        //https://docs.gradle.org/current/userguide/userguide_single.html#sec:accessing_the_web_via_a_proxy
         classpath 'com.android.tools.build:gradle:3.6.1'
         
 
