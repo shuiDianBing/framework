@@ -1,5 +1,6 @@
 package com.stynet.frameset.network;
 
+import com.stynet.framework.BuildConfig;
 import com.stynet.framework.network.retrofit.ApiPolicy;
 
 /**
@@ -8,8 +9,8 @@ import com.stynet.framework.network.retrofit.ApiPolicy;
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function <<
  */
-public class AppPolicy{
-    private static final String HOST_ = "http://www.weather.com.cn";
+public class AppPolicy extends ApiPolicy{
+    private static final String HOST = "http://www.weather.com.cn";
     private static final String HOST_DEBUG = "";
     private static AppPolicy appPolicy;
     private RemoteApi api;
@@ -21,7 +22,8 @@ public class AppPolicy{
     }
 
     private AppPolicy() {
-        api = (RemoteApi)ApiPolicy.getInstance(RemoteApi.class,"host").getType();
+        super(RemoteApi.class,null,null,HOST, BuildConfig.DEBUG);
+        api = (RemoteApi) getType();
     }
 
     public RemoteApi getApi() {

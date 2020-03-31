@@ -89,7 +89,7 @@ public abstract class ApiStrategy {
      *
      * @return
      */
-    abstract String host();
+    public abstract String host();
 
     public Retrofit getRetrofit() {
         return retrofit;

@@ -1,5 +1,6 @@
 package com.stynet.frameset.network;
 
+import com.stynet.framework.BuildConfig;
 import com.stynet.framework.network.retrofit.ApiStrategy;
 
 /**
@@ -8,8 +9,8 @@ import com.stynet.framework.network.retrofit.ApiStrategy;
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function <<
  */
-public class AppStrategy{
-    private static final String HOST_ = "http://www.weather.com.cn";
+public class AppStrategy extends ApiStrategy{
+    private static final String HOST = "http://www.weather.com.cn";
     private static final String HOST_DEBUG = "";
     private static AppStrategy appStrategy;
     private RemoteApi api;
@@ -21,10 +22,16 @@ public class AppStrategy{
     }
 
     private AppStrategy() {
-        api = ApiStrategy.getInstance("host").getRetrofit().create(RemoteApi.class);
+        super(BuildConfig.DEBUG);
+        api = getRetrofit().create(RemoteApi.class);
     }
 
     public RemoteApi getApi() {
         return api;
+    }
+
+    @Override
+    public String host() {
+        return HOST;
     }
 }
