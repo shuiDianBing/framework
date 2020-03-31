@@ -22,16 +22,11 @@ public class AppStrategy extends ApiStrategy{
     }
 
     private AppStrategy() {
-        super(BuildConfig.DEBUG);
+        super(HOST,BuildConfig.DEBUG);
         api = getRetrofit().create(RemoteApi.class);
     }
 
     public RemoteApi getApi() {
         return api;
-    }
-
-    @Override
-    public String host() {
-        return HOST;
     }
 }

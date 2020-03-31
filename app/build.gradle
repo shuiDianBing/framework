@@ -26,7 +26,7 @@ android {
     }
     signingConfigs{
         //提高安全性签名文件、别名、密码放置gradle.properties中
-        debug{
+        debug {
             keyAlias KEY_ALIAS
             keyPassword KEY_PASSWORD
             storeFile file(KEYSTORE_FILE)

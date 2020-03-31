@@ -49,7 +49,7 @@ public class ApiPolicy extends ApiStrategy{
      * @param headMap
      * @param bodyMap
      */
-    public void setCommonParam(Map headMap,Map bodyMap){
+    protected void setCommonParam(Map headMap,Map bodyMap){
         this.headMap = headMap;
         this.bodyMap = bodyMap;
     }
