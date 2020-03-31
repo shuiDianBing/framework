@@ -33,7 +33,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * function << 内部创建生成请求接口
  */
 public class ApiPolicy extends ApiStrategy{
-//    private static ApiPolicy apiPolicy;
+    private static ApiPolicy apiPolicy;
     private static String HOST;
     private Object type;
     private Map headMap,bodyMap;//公共头部,公共体
@@ -42,20 +42,26 @@ public class ApiPolicy extends ApiStrategy{
      *
      * @return
      */
-//    public static ApiPolicy getInstance(Class service,String host,boolean printf){
-//        HOST = host;
-//        if(null == apiPolicy)
-//            apiPolicy = new ApiPolicy(service,printf);
-//        return apiPolicy;
-//    }
+    public static ApiPolicy getInstance(Class service,String host,boolean printf){
+        HOST = host;
+        if(null == apiPolicy)
+            apiPolicy = new ApiPolicy(service,printf);
+        return apiPolicy;
+    }
 
-    protected ApiPolicy(Class service,Map headMap,Map bodyMap,String host,boolean printf){
-        super(printf);
+    protected ApiPolicy(Class service,Map headMap,Map bodyMap,boolean printf){
+        this(service,printf);
         this.headMap = headMap;
         this.bodyMap = bodyMap;
-        HOST = host;
         type = getRetrofit().create(service);
     }
+
+
+    protected ApiPolicy(Class service,boolean printf){
+        super(printf);
+        type = getRetrofit().create(service);
+    }
+
 
     /**
      *
