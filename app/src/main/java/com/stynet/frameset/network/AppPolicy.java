@@ -22,7 +22,7 @@ public class AppPolicy extends ApiPolicy{
     }
 
     private AppPolicy() {
-        super(RemoteApi.class,null,null,HOST, BuildConfig.DEBUG);
+        super(RemoteApi.class,HOST, BuildConfig.DEBUG);
         api = (RemoteApi) getType();
     }
 

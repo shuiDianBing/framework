@@ -35,15 +35,23 @@ public class ApiPolicy extends ApiStrategy{
 //        return apiPolicy;
 //    }
 
-    protected ApiPolicy(Class service,Map headMap,Map bodyMap,String host,boolean printf){
+    protected ApiPolicy(Class service,String host,boolean printf){
         super(host,printf);
-        this.headMap = headMap;
-        this.bodyMap = bodyMap;
         type = getRetrofit().create(service);
     }
 
     public Object getType() {
         return type;
+    }
+
+    /**
+     * 设置共用参数
+     * @param headMap
+     * @param bodyMap
+     */
+    public void setCommonParam(Map headMap,Map bodyMap){
+        this.headMap = headMap;
+        this.bodyMap = bodyMap;
     }
 
     @Override
@@ -86,6 +94,10 @@ public class ApiPolicy extends ApiStrategy{
         }
     }
 
+    /**
+     * okHttp请求公共参数 https://www.jianshu.com/p/78bdef9fd78a
+     * @param httpUrl
+     */
     private void addGets(HttpUrl httpUrl){
         //请求参数集合
 //        Set<String> paramNames = url.queryParameterNames();
