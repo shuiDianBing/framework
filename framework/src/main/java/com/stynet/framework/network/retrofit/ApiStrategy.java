@@ -1,9 +1,12 @@
 package com.stynet.framework.network.retrofit;
 
+import androidx.annotation.NonNull;
+
 import com.stynet.framework.Printf;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -16,24 +19,49 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * function << 封装网络请求拦截器 << 请求接口交给外部灵活创建
  * {@link ApiPolicy}
  */
-public final class ApiStrategy {
-    private static ApiStrategy apiStrategy;
+public abstract class ApiStrategy {
+//    private static ApiStrategy apiStrategy;
     private Retrofit retrofit;
-    //private Api api;
-    private static String HOST;
 
     /**
      *
      * @return
      */
-    public static ApiStrategy getInstance(String host){
-        HOST = host;
-        if(null == apiStrategy)
-            apiStrategy = new ApiStrategy();
-        return apiStrategy;
+//    private static ApiStrategy getInstance(String host){
+//        HOST = host;
+//        if(null == apiStrategy)
+//            apiStrategy = new ApiStrategy();
+//        return apiStrategy;
+//    }
+
+    protected ApiStrategy(boolean printf){
+        retrofit = new Retrofit.Builder().client(initClient(printf))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(ResponseConverterFactory/*GsonConverterFactory*/.create())
+                .baseUrl(host()).build();//.create(service);
     }
 
-    private ApiStrategy(){
+    /**
+     * 初始OkHttpClient
+     * @param printf
+     * @return
+     */
+    private OkHttpClient initClient(boolean printf){
+        OkHttpClient.Builder okHttpClientBuild = new OkHttpClient.Builder().connectTimeout(0xf, TimeUnit.SECONDS)
+                .readTimeout(0xf,TimeUnit.SECONDS).writeTimeout(0xf,TimeUnit.SECONDS);
+        
+        if(printf)
+            okHttpClientBuild.addInterceptor(createHttpLogInterceptor());
+
+        interceptor(okHttpClientBuild);
+        return okHttpClientBuild.build();//.addNetworkInterceptor(interceptor).build();//TODO 后续更新addNetworkInterceptor
+    }
+
+    /**
+     * 创建日志拦截器
+     * @return
+     */
+    protected HttpLoggingInterceptor createHttpLogInterceptor(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -41,30 +69,20 @@ public final class ApiStrategy {
             }
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        retrofit = new Retrofit.Builder().client(new OkHttpClient.Builder().connectTimeout(0x10, TimeUnit.SECONDS)
-                .readTimeout(0x10,TimeUnit.SECONDS).writeTimeout(0x10,TimeUnit.SECONDS)
-                .addInterceptor(interceptor).addNetworkInterceptor(interceptor).build())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(ResponseConverterFactory/*GsonConverterFactory*/.create())
-                .baseUrl(host()).build();//.create(service);
+        return interceptor;
     }
+
+    /**
+     * 设置其他拦截器
+     * @param builder
+     */
+    protected void interceptor(OkHttpClient.Builder builder){}
 
     /**
      *
      * @return
      */
-    public String host(){
-        return HOST;//debug
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static String webHost(){
-        //return null;//debug
-        return HOST;
-    }
+    abstract String host();
 
     public Retrofit getRetrofit() {
         return retrofit;
