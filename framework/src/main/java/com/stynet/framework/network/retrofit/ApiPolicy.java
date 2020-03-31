@@ -16,7 +16,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * function << 内部创建生成请求接口
  */
 public class ApiPolicy extends ApiStrategy{
-    private static ApiPolicy apiPolicy;
+//    private static ApiPolicy apiPolicy;
     private Object type;
     private static String HOST;
 
@@ -24,15 +24,16 @@ public class ApiPolicy extends ApiStrategy{
      *
      * @return
      */
-    public static ApiPolicy getInstance(Class service,String host,boolean printf){
-        HOST = host;
-        if(null == apiPolicy)
-            apiPolicy = new ApiPolicy(service,printf);
-        return apiPolicy;
-    }
+//    public static ApiPolicy getInstance(Class service,String host,boolean printf){
+//        HOST = host;
+//        if(null == apiPolicy)
+//            apiPolicy = new ApiPolicy(service,printf);
+//        return apiPolicy;
+//    }
 
-    private ApiPolicy(Class service,boolean printf){
+    protected ApiPolicy(Class service,String host,boolean printf){
         super(printf);
+        HOST = host;
         type = getRetrofit().create(service);
     }
 
