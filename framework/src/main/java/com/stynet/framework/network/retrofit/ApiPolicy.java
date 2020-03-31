@@ -1,30 +1,17 @@
 package com.stynet.framework.network.retrofit;
 
-import android.text.TextUtils;
-
-import com.google.gson.Gson;
-import com.stynet.framework.Printf;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
-import okio.Buffer;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
  * Created by shuiDianBing on 9:55.
@@ -33,8 +20,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * function << 内部创建生成请求接口
  */
 public class ApiPolicy extends ApiStrategy{
-    private static ApiPolicy apiPolicy;
-    private static String HOST;
+//    private static ApiPolicy apiPolicy;
     private Object type;
     private Map headMap,bodyMap;//公共头部,公共体
 
@@ -42,43 +28,18 @@ public class ApiPolicy extends ApiStrategy{
      *
      * @return
      */
-    public static ApiPolicy getInstance(Class service,String host,boolean printf){
-        HOST = host;
-        if(null == apiPolicy)
-            apiPolicy = new ApiPolicy(service,printf);
-        return apiPolicy;
-    }
+//    public static ApiPolicy getInstance(Class service,String host,boolean printf){
+//        HOST = host;
+//        if(null == apiPolicy)
+//            apiPolicy = new ApiPolicy(service,printf);
+//        return apiPolicy;
+//    }
 
-    protected ApiPolicy(Class service,Map headMap,Map bodyMap,boolean printf){
-        this(service,printf);
+    protected ApiPolicy(Class service,Map headMap,Map bodyMap,String host,boolean printf){
+        super(host,printf);
         this.headMap = headMap;
         this.bodyMap = bodyMap;
         type = getRetrofit().create(service);
-    }
-
-
-    protected ApiPolicy(Class service,boolean printf){
-        super(printf);
-        type = getRetrofit().create(service);
-    }
-
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String host(){
-        return HOST;//debug
-    }
-
-    /**
-     *
-     * @return
-     */
-    public static String webHost(){
-        //return null;//debug
-        return HOST;
     }
 
     public Object getType() {

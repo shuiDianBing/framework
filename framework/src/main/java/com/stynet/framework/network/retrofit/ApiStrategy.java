@@ -18,7 +18,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function << 配置retrofit
  */
-public abstract class ApiStrategy {
+public class ApiStrategy {
 //    private static ApiStrategy apiStrategy;
     private Retrofit retrofit;
 
@@ -33,11 +33,11 @@ public abstract class ApiStrategy {
 //        return apiStrategy;
 //    }
 
-    protected ApiStrategy(boolean printf){
+    protected ApiStrategy(String host,boolean printf){
         retrofit = new Retrofit.Builder().client(initClient(printf))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(ResponseConverterFactory/*GsonConverterFactory*/.create())
-                .baseUrl(host()).build();//.create(service);
+                .baseUrl(host).build();//.create(service);
     }
 
     /**
@@ -84,12 +84,6 @@ public abstract class ApiStrategy {
     protected void networkInterceptor(OkHttpClient.Builder builder){
 
     }
-
-    /**
-     *
-     * @return
-     */
-    public abstract String host();
 
     public Retrofit getRetrofit() {
         return retrofit;
