@@ -16,8 +16,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * Created by shuiDianBing on 14:04.
  * Refer to the website << HttpLoggingInterceptor 拦截 请求参数和请求结果 : https://www.jianshu.com/p/78e9ff82863b
  * QQ << 1226085282 &  Email << 1226085282@qq.com
- * function << 封装网络请求拦截器 << 请求接口交给外部灵活创建
- * {@link ApiPolicy}
+ * function << 配置retrofit
  */
 public abstract class ApiStrategy {
 //    private static ApiStrategy apiStrategy;
@@ -49,12 +48,13 @@ public abstract class ApiStrategy {
     private OkHttpClient initClient(boolean printf){
         OkHttpClient.Builder okHttpClientBuild = new OkHttpClient.Builder().connectTimeout(0xf, TimeUnit.SECONDS)
                 .readTimeout(0xf,TimeUnit.SECONDS).writeTimeout(0xf,TimeUnit.SECONDS);
-        
+
         if(printf)
             okHttpClientBuild.addInterceptor(createHttpLogInterceptor());
 
         interceptor(okHttpClientBuild);
-        return okHttpClientBuild.build();//.addNetworkInterceptor(interceptor).build();//TODO 后续更新addNetworkInterceptor
+        networkInterceptor(okHttpClientBuild);
+        return okHttpClientBuild.build();
     }
 
     /**
@@ -77,6 +77,13 @@ public abstract class ApiStrategy {
      * @param builder
      */
     protected void interceptor(OkHttpClient.Builder builder){}
+
+    /**
+     * TODO 后续更新addNetworkInterceptor
+     */
+    protected void networkInterceptor(OkHttpClient.Builder builder){
+
+    }
 
     /**
      *
