@@ -15,7 +15,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function << 内部创建生成请求接口
  */
-public final class ApiPolicy extends ApiStrategy{
+public class ApiPolicy extends ApiStrategy{
     private static ApiPolicy apiPolicy;
     private Object type;
     private static String HOST;
@@ -40,6 +40,7 @@ public final class ApiPolicy extends ApiStrategy{
      *
      * @return
      */
+    @Override
     public String host(){
         return HOST;//debug
     }
