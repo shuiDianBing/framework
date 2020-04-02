@@ -21,11 +21,6 @@ public abstract class FrameAdapter extends Adaptor{
         super(list);
     }
 
-    @Override
-    public int getItemCount() {
-        return getList().size();
-    }
-
     public class BindingViewHolder<Binding extends ViewDataBinding> extends RecyclerView.ViewHolder{
         private Binding binding;
         public BindingViewHolder(View view) {
