@@ -1,6 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Frameset</string>
+
     <string name="playLifeLoading">玩命加载中...</string>
+
     <string name="linkStatus">链接状态</string>
     <string name="networkNotConnected">未连接网络</string>
+    <string name="pleaseLinkNetwork">请链接网络</string>
+    <string name="openNetwork">开启网络</string>
 </resources>

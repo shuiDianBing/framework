@@ -14,11 +14,15 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.stynet.framework.network.NetworkUtils;
 
 /**
  * Created by shuiDianBing on 11:16.
@@ -28,7 +32,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
  * 对应于Activity和xml，只负责view与用户交互操作数据显示等
  */
 public class FrameActivity extends AppCompatActivity {
-    private AlertDialog loading;
+    private AlertDialog networkDialog,loading;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     protected void onDestroy() {
@@ -53,6 +63,34 @@ public class FrameActivity extends AppCompatActivity {
             window.setStatusBarColor(color);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         //}
+    }
+
+    /**
+     * 
+     * @param title
+     * @param message
+     * @param postiveStr
+     */
+    public void displayNetworkDialog(@StringRes int title, @StringRes int message, @StringRes int postiveStr){
+        displayNetworkDialog(getString(title),getString(message),getString(postiveStr));
+    }
+
+    /**
+     *
+     * @param title
+     * @param message
+     * @param postiveStr
+     */
+    public void displayNetworkDialog(String title,String message,String postiveStr){
+        if(null == networkDialog)
+            networkDialog = new AlertDialog.Builder(this).setTitle(title).setMessage(message)
+                    .setPositiveButton(R.string.openNetwork, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            NetworkUtils.openWirelessSettings(FrameActivity.this);
+                        }
+                    }).create();
+        networkDialog.show();
     }
 
     /**
