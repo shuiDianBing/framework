@@ -1,8 +1,10 @@
 package com.stynet.framework.adapter;
 
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,11 +28,11 @@ public abstract class FrameAdapter extends Adaptor{
 
     public class BindingViewHolder<Binding extends ViewDataBinding> extends RecyclerView.ViewHolder{
         private Binding binding;
-        public BindingViewHolder(Binding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+        public BindingViewHolder(View view) {
+            super(view);
+            binding = DataBindingUtil.bind(view);
         }
-        public Binding getBinding(){
+        public ViewDataBinding getBinding(){
             return binding;
         }
     }
