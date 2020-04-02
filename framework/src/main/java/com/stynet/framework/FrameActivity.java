@@ -29,28 +29,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
  */
 public class FrameActivity extends AppCompatActivity {
     private AlertDialog loading;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    /**
-     *
-     * 重写 getResource 方法，防止系统字体影响，
-     * 高版本要放在activity中{@link FrameActivity#getResources()}，如果不设置的话重写此方法
-     * Android 应用全局字体调节或禁止随系统字体大小更改<< https://www.jianshu.com/p/dc78921a136b
-     * @return
-     */
-    @Override
-    public Resources getResources() {
-        Resources resources = super.getResources();
-        Configuration configuration = resources.getConfiguration();
-        if(null != configuration && 1.0f != configuration.fontScale){//设置禁止系统更改本app字体大小
-            configuration.fontScale = 1.0f;
-            resources.updateConfiguration(configuration,resources.getDisplayMetrics());
-        }
-        return resources;//super.getResources();
-    }
 
     @Override
     protected void onDestroy() {
@@ -115,5 +93,23 @@ public class FrameActivity extends AppCompatActivity {
     protected void hideLoading(){
         if(null != loading && loading.isShowing())
             loading.dismiss();//loading.cancel();
+    }
+
+    /**
+     *
+     * 重写 getResource 方法，防止系统字体影响，
+     * 高版本要放在activity中{@link FrameActivity#getResources()}，如果不设置的话重写此方法
+     * Android 应用全局字体调节或禁止随系统字体大小更改<< https://www.jianshu.com/p/dc78921a136b
+     * @return
+     */
+    @Override
+    public Resources getResources() {
+        Resources resources = super.getResources();
+        Configuration configuration = resources.getConfiguration();
+        if(null != configuration && 1.0f != configuration.fontScale){//设置禁止系统更改本app字体大小
+            configuration.fontScale = 1.0f;
+            resources.updateConfiguration(configuration,resources.getDisplayMetrics());
+        }
+        return resources;//super.getResources();
     }
 }
