@@ -2,6 +2,8 @@
     <string name="app_name">Frameset</string>
 
     <string name="playLifeLoading">玩命加载中...</string>
+    <string name="loading">loading...</string>
+    <string name="bottomLine">我是有底线的</string>
 
     <string name="linkStatus">链接状态</string>
     <string name="networkNotConnected">未连接网络</string>

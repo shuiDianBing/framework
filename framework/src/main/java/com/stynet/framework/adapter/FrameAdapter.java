@@ -14,35 +14,14 @@ import java.util.List;
  * QQ << 1226085282 &  Email << 1226085282@qq.com
  * function << 封装绑定适配
  */
-public abstract class FrameAdapter extends RecyclerView.Adapter<FrameAdapter.BindingViewHolder>{
-    private List list;
-
+public abstract class FrameAdapter extends Adaptor{
     public FrameAdapter(List list) {
-        this.list = list;
+        super(list);
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
-    }
-
-    /**
-     * 刷新
-     * @param list 新数据
-     * @param isRefresh 是否刷新
-     */
-    public void update(List list, boolean isRefresh){
-        if(null != list) {
-            if (isRefresh || null == this.list)
-                this.list = list;
-            else
-                this.list.addAll(list);
-            notifyDataSetChanged();
-        }
-    }
-
-    protected List getList() {
-        return list;
+        return getList().size();
     }
 
     public class BindingViewHolder<Binding extends ViewDataBinding> extends RecyclerView.ViewHolder{

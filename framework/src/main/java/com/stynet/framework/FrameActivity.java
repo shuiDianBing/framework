@@ -43,6 +43,8 @@ public class FrameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(null != networkDialog)
+            networkDialog.dismiss();
         hideLoading();
     }
 
