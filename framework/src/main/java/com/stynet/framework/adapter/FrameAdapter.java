@@ -21,6 +21,13 @@ public abstract class FrameAdapter extends Adaptor{
         super(list);
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+        super.onBindViewHolder(viewHolder, i);
+        viewHolder.itemView.setId(i);
+        viewHolder.itemView.setTag(getList().get(i));
+    }
+
     public class BindingViewHolder<Binding extends ViewDataBinding> extends RecyclerView.ViewHolder{
         private Binding binding;
         public BindingViewHolder(View view) {

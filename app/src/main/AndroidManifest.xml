@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.TestActivityNetwork"/><!--测试网络工具-->
+        <activity android:name=".view.TestActivityToobar"/><!--测试透明状态栏-->
     </application>
 
 </manifest>

@@ -1,22 +1,14 @@
 package com.stynet.framework;
 
-import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,25 +38,6 @@ public class FrameActivity extends AppCompatActivity {
         if(null != networkDialog)
             networkDialog.dismiss();
         hideLoading();
-    }
-
-    /**
-     * 沉浸状态栏
-     * @param color 状态栏颜色
-     */
-    //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    protected void statusBar(int color){// 5.0以上系统状态栏透明
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if(Color.TRANSPARENT > color && Color.WHITE < color)//判断颜色是否越界
-                color = Color.TRANSPARENT;//超出颜色范围设置为透明
-            window.setStatusBarColor(color);
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        //}
     }
 
     /**
