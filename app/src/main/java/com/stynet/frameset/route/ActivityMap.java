@@ -36,7 +36,7 @@ public class ActivityMap {
     public void startActivity(Activity activity,String key){
         try {
             Class cls = Class.forName(map.get(key));
-            if(cls.isAssignableFrom(Activity.class))
+            if(Activity.class.isAssignableFrom(cls))
                 activity.startActivity(new Intent(activity, cls));
             else
                 Toast.makeText(activity,"is no Activity",Toast.LENGTH_SHORT).show();
