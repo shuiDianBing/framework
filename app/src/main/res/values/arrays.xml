@@ -6,6 +6,6 @@
     </string-array>
     <string-array name="functionClass">
         <item name="toobar">com.stynet.frameset.view.TestActivityToobar</item>
-        <item name="toobar">com.stynet.frameset.view.TestActivityNetwork</item>
+        <item name="network">com.stynet.frameset.view.TestActivityNetwork</item>
     </string-array>
 </resources>
